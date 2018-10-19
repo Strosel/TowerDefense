@@ -1,7 +1,12 @@
+let width = 500;
+let height = 500;
+let track;
 
 function setup() {
-  createCanvas(640, 480);
-  frameRate(30);
+  createCanvas(width+1, height+1); // +1 to have space for all lines
+  frameRate(1);
+  track = new Track(width, height, 10, 10);
+  noLoop();
 }
 
 function update() {
@@ -11,5 +16,5 @@ function update() {
 function draw() {
   update();
 
-
+  track.Draw();
 }

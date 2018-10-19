@@ -1,10 +1,10 @@
 function Entity(pos, tex) {
-  this.Position = pos;
-  this.Texture = tex;
+  this.position = pos;
+  this.texture = tex;
 }
 
 function MovEntity(pos, tex, speed) {
   Entity.call(this, pos, tex);
 
-  this.Speed = speed;
+  this.speed = speed;
 }
