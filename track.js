@@ -21,7 +21,7 @@ function Track (w, h, map) {
     }
   }
 
-  this.grid = map;
+  this.grid = transpose(map);
   this.x = map.length;
   this.y = map[0].length;
   this.blockWidth = w / this.x;
@@ -45,4 +45,11 @@ function Track (w, h, map) {
       }
     }
   }
+}
+
+function transpose(a) {
+  // https://stackoverflow.com/a/13241545
+    return Object.keys(a[0]).map(function(c) {
+        return a.map(function(r) { return r[c]; });
+    });
 }
