@@ -2,7 +2,7 @@ function Track (w, h, map) {
   this.width = w;
   this.height = h;
 
-  for (let i = 0; i < map.length; i++) {  // add parsing for lenght if map[0][x].lenght < map[0][0].lenght insert; map[0][x].lenght > map[0][0].lenght truncate
+  for (let i = 0; i < map.length; i++) {
     if (map[i].length <= 1) {
       map.pop(i);
       continue;
@@ -31,6 +31,9 @@ function Track (w, h, map) {
     for (let y = 0; y < this.grid[0].length; y++) {
       if (this.grid[x][y] === "X"){
         this.grid[x][y] = new Entity(createVector(this.blockWidth*x,this.blockHeight*y), "space");
+      }
+      if (this.grid[x][y] === "<" || this.grid[x][y] === ">" || this.grid[x][y] === "V" || this.grid[x][y] === "^"){
+        this.grid[x][y] = new Entity(createVector(this.blockWidth*x,this.blockHeight*y), "road");
       }
     }
   }
