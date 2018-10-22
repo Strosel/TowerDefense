@@ -55,3 +55,10 @@ class Track {
     return map;
   }
 }
+
+function transpose(a) {
+  // https://stackoverflow.com/a/13241545
+    return Object.keys(a[0]).map(function(c) {
+        return a.map(function(r) { return r[c]; });
+    });
+}
