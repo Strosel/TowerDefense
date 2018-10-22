@@ -32,7 +32,7 @@ function Track (w, h, map) {
       if (this.grid[x][y] === "X"){
         this.grid[x][y] = new Entity(createVector(this.blockWidth*x,this.blockHeight*y), "space");
       }
-      if (this.grid[x][y] === "<" || this.grid[x][y] === ">" || this.grid[x][y] === "V" || this.grid[x][y] === "^"){
+      if (this.grid[x][y] === "S" || this.grid[x][y] === "<" || this.grid[x][y] === ">" || this.grid[x][y] === "V" || this.grid[x][y] === "^"){
         this.grid[x][y] = new Entity(createVector(this.blockWidth*x,this.blockHeight*y), "road");
       }
     }
