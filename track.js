@@ -29,7 +29,7 @@ function Track (w, h, map) {
 
   for (let x = 0; x < this.grid.length; x++) {
     for (let y = 0; y < this.grid[0].length; y++) {
-      if (this.grid[x][y] = "X"){
+      if (this.grid[x][y] === "X"){
         this.grid[x][y] = new Entity(createVector(this.blockWidth*x,this.blockHeight*y), "space");
       }
     }
