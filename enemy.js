@@ -1,8 +1,10 @@
-function Enemy (pos, tex, speed, health) {
-  MovEntity.call(pos, tex, speed);
-  this.health = health;
+class Enemy extends MovEntity {
+  constructor (pos, tex, speed, health) {
+    super(pos, tex, speed);
+    this.health = health;
+  }
 
-  this.move = function(){
-    pos = pos.add(speed);
+  move() {
+    this.position = position.add(speed);
   }
 }
