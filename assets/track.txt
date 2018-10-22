@@ -1,5 +1,5 @@
 X X X X X X X X X X
-X V < < < < < < < S
+X V < < < < < < < L
 X V X X X X X X X X
 X V X X X > > > V X
 X V X X X ^ X X V X
