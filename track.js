@@ -43,11 +43,32 @@ class Track {
 
     for (let x = 0; x < map.length; x++) {
       for (let y = 0; y < map[0].length; y++) {
+        if (map[x][y] === "L"){
+          map[x][y] = new StartPoint(createVector(blockWidth*x,blockHeight*y), "StartRoad", createVector(-1, 0));
+        }else if (map[x][y] === "R"){
+          map[x][y] = new StartPoint(createVector(blockWidth*x,blockHeight*y), "StartRoad", createVector(1, 0));
+        }else if (map[x][y] === "D"){
+          map[x][y] = new StartPoint(createVector(blockWidth*x,blockHeight*y), "StartRoad", createVector(0, 1));
+        }else if (map[x][y] === "U"){
+          map[x][y] = new StartPoint(createVector(blockWidth*x,blockHeight*y), "StartRoad", createVector(0, -1));
+        }
+      }
+    }
+
+    for (let x = 0; x < map.length; x++) {
+      for (let y = 0; y < map[0].length; y++) {
         if (map[x][y] === "X"){
           map[x][y] = new Entity(createVector(blockWidth*x,blockHeight*y), "space");
-        }
-        if (map[x][y] === "S" || map[x][y] === "<" || map[x][y] === ">" || map[x][y] === "V" || map[x][y] === "^"){
-          map[x][y] = new Entity(createVector(blockWidth*x,blockHeight*y), "road");
+        }else if (map[x][y] === "<"){
+          map[x][y] = new Road(createVector(blockWidth*x,blockHeight*y), "road", createVector(-1, 0));
+        }else if (map[x][y] === ">"){
+          map[x][y] = new Road(createVector(blockWidth*x,blockHeight*y), "road", createVector(1, 0));
+        }else if (map[x][y] === "V"){
+          map[x][y] = new Road(createVector(blockWidth*x,blockHeight*y), "road", createVector(0, 1));
+        }else if (map[x][y] === "^"){
+          map[x][y] = new Road(createVector(blockWidth*x,blockHeight*y), "road", createVector(0, -1));
+        }else if (typeof map[x][y] === 'string') {
+          map[x][y] = new Entity(createVector(blockWidth*x,blockHeight*y), "undefined");
         }
       }
     }
