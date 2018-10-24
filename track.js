@@ -77,6 +77,11 @@ class Track {
     }
     return createVector(Math.floor(x / this.blockWidth), Math.floor(y / this.blockHeight));
   }
+
+  getEntity(x, y) {
+    let pos = this.gridPos(x, y);
+    return this.grid[pos.x][pos.y]
+  }
 }
 
 function transpose(a) {
