@@ -11,6 +11,8 @@ class Enemy extends MovEntity {
   }
 
   move() {
-    this.position = position.add(speed);
+    var currentRoad = track.getEntity(this.position);
+    this.position.x += this.speed * currentRoad.direction.x;
+    this.position.y += this.speed * currentRoad.direction.y;
   }
 }
