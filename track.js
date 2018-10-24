@@ -7,6 +7,8 @@ class Track {
     this.y = this.grid[0].length;
     this.blockWidth = w / this.x;
     this.blockHeight = h / this.y;
+
+    this.entitySize = createVector(this.blockWidth, this.blockHeight);
   }
 
   draw() {
@@ -44,10 +46,10 @@ class Track {
     for (let x = 0; x < map.length; x++) {
       for (let y = 0; y < map[0].length; y++) {
         if (map[x][y] === "X"){
-          map[x][y] = new Entity(createVector(blockWidth*x,blockHeight*y), "space");
+          map[x][y] = new Entity(createVector(blockWidth*x,blockHeight*y), "space", this.entitySize);
         }
         if (map[x][y] === "S" || map[x][y] === "<" || map[x][y] === ">" || map[x][y] === "V" || map[x][y] === "^"){
-          map[x][y] = new Entity(createVector(blockWidth*x,blockHeight*y), "road");
+          map[x][y] = new Entity(createVector(blockWidth*x,blockHeight*y), "road", this.entitySize);
         }
       }
     }
