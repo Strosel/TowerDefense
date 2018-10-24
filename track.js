@@ -91,6 +91,16 @@ class Track {
     let pos = this.gridPos(x, y);
     return this.grid[pos.x][pos.y]
   }
+
+  getStart() {
+    for (let x = 0; x < this.grid.length; x++) {
+      for (let y = 0; y < this.grid[0].length; y++) {
+        if (this.grid[x][y] instanceof StartPoint){
+          return this.grid[x][y];
+        }
+      }
+    }
+  }
 }
 
 function transpose(a) {
