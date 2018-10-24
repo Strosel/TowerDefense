@@ -46,13 +46,13 @@ class Track {
     for (let x = 0; x < map.length; x++) {
       for (let y = 0; y < map[0].length; y++) {
         if (map[x][y] === "L"){
-          map[x][y] = new StartPoint(createVector(blockWidth*x,blockHeight*y), "StartRoad", createVector(-1, 0));
+          map[x][y] = new StartPoint(createVector(blockWidth*x,blockHeight*y), "StartRoad", this.entitySize, createVector(-1, 0));
         }else if (map[x][y] === "R"){
-          map[x][y] = new StartPoint(createVector(blockWidth*x,blockHeight*y), "StartRoad", createVector(1, 0));
+          map[x][y] = new StartPoint(createVector(blockWidth*x,blockHeight*y), "StartRoad", this.entitySize, createVector(1, 0));
         }else if (map[x][y] === "D"){
-          map[x][y] = new StartPoint(createVector(blockWidth*x,blockHeight*y), "StartRoad", createVector(0, 1));
+          map[x][y] = new StartPoint(createVector(blockWidth*x,blockHeight*y), "StartRoad", this.entitySize, createVector(0, 1));
         }else if (map[x][y] === "U"){
-          map[x][y] = new StartPoint(createVector(blockWidth*x,blockHeight*y), "StartRoad", createVector(0, -1));
+          map[x][y] = new StartPoint(createVector(blockWidth*x,blockHeight*y), "StartRoad", this.entitySize, createVector(0, -1));
         }
       }
     }
