@@ -3,11 +3,11 @@ class Enemy extends MovEntity {
     super(pos, tex, siz, speed);
     this.health = health;
 
-    var origin = createVector(pos.x + size.x / 2, pos.y + size.y / 2);
-    var top = createVector(pos.x + size.x / 2, pos.y);
-    var right = createVector(pos.x + size.x, pos.y + size.y / 2);
-    var bottom = createVector(pos.x + size.x / 2, pos.y + size.y);
-    var left = createVector(pos.x, pos.y + size.y / 2);
+    this.origin = createVector(pos.x + size.x / 2, pos.y + size.y / 2);
+    this.top = createVector(pos.x + size.x / 2, pos.y);
+    this.right = createVector(pos.x + size.x, pos.y + size.y / 2);
+    this.bottom = createVector(pos.x + size.x / 2, pos.y + size.y);
+    this.left = createVector(pos.x, pos.y + size.y / 2);
   }
 
   move() {
