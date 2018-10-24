@@ -1,6 +1,6 @@
 class Enemy extends MovEntity {
-  constructor (pos, tex, speed, health) {
-    super(pos, tex, speed);
+  constructor (pos, tex, siz, speed, health) {
+    super(pos, tex, siz, speed);
     this.health = health;
   }
 
