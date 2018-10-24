@@ -70,6 +70,13 @@ class Track {
 
     return map;
   }
+
+  gridPos(x, y) {
+    if (x instanceof p5.Vector){
+      return createVector(Math.floor(x.x / this.blockWidth), Math.floor(x.y / this.blockHeight));
+    }
+    return createVector(Math.floor(x / this.blockWidth), Math.floor(y / this.blockHeight));
+  }
 }
 
 function transpose(a) {
