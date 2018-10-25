@@ -96,7 +96,7 @@ class Track {
     for (let x = 0; x < this.grid.length; x++) {
       for (let y = 0; y < this.grid[0].length; y++) {
         if (this.grid[x][y] instanceof StartPoint){
-          return this.grid[x][y];
+          return createVector(this.grid[x][y].position.x,this.grid[x][y].position.y);
         }
       }
     }
