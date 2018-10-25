@@ -61,15 +61,15 @@ class Track {
     for (let x = 0; x < map.length; x++) {
       for (let y = 0; y < map[0].length; y++) {
         if (map[x][y] === "X"){
-          map[x][y] = new Entity(createVector(blockWidth*x,blockHeight*y), "space");
+          map[x][y] = new Entity(createVector(blockWidth*x,blockHeight*y), "space", entitySize);
         }else if (map[x][y] === "<"){
-          map[x][y] = new Road(createVector(blockWidth*x,blockHeight*y), "road", createVector(-1, 0));
+          map[x][y] = new Road(createVector(blockWidth*x,blockHeight*y), "road", entitySize, createVector(-1, 0));
         }else if (map[x][y] === ">"){
-          map[x][y] = new Road(createVector(blockWidth*x,blockHeight*y), "road", createVector(1, 0));
+          map[x][y] = new Road(createVector(blockWidth*x,blockHeight*y), "road", entitySize, createVector(1, 0));
         }else if (map[x][y] === "V"){
-          map[x][y] = new Road(createVector(blockWidth*x,blockHeight*y), "road", createVector(0, 1));
+          map[x][y] = new Road(createVector(blockWidth*x,blockHeight*y), "road", entitySize, createVector(0, 1));
         }else if (map[x][y] === "^"){
-          map[x][y] = new Road(createVector(blockWidth*x,blockHeight*y), "road", createVector(0, -1));
+          map[x][y] = new Road(createVector(blockWidth*x,blockHeight*y), "road", entitySize, createVector(0, -1));
         }else if (typeof map[x][y] === 'string') {
           map[x][y] = new Entity(createVector(blockWidth*x,blockHeight*y), "undefined");
           console.warn(`undefined entity in map at (${x};${y})`);
@@ -81,7 +81,7 @@ class Track {
   }
 
   gridPos(x, y) {
-    if (x instanceof p5.Vector){
+    if (x instanceof p5.Vector) {
       return createVector(Math.floor(x.x / this.blockWidth), Math.floor(x.y / this.blockHeight));
     }
     return createVector(Math.floor(x / this.blockWidth), Math.floor(y / this.blockHeight));
@@ -89,7 +89,7 @@ class Track {
 
   getEntity(x, y) {
     let pos = this.gridPos(x, y);
-    return this.grid[pos.x][pos.y]
+    return this.grid[pos.x][pos.y];
   }
 
   getStart() {
@@ -97,6 +97,43 @@ class Track {
       for (let y = 0; y < this.grid[0].length; y++) {
         if (this.grid[x][y] instanceof StartPoint){
           return createVector(this.grid[x][y].position.x,this.grid[x][y].position.y);
+        }
+      }
+    }
+  }
+
+  roadArray() {
+    let arr = [this.getStart()];
+    let currPos = this.gridPos(arr[0].position);
+    currPos.add(this.grid[currPos.x][currPos.y].direction);
+
+    while (currPos.x > 0 && currPos.x < this.x && currPos.y > 0 && currPos.y < this.y) {
+      arr.push(this.grid[currPos.x][currPos.y]);
+      currPos.add(this.grid[currPos.x][currPos.y].direction);
+    }
+
+    return arr;
+  }
+
+  setRoadTextures() {
+    let roads = this.roadArray();
+
+    for (let i = 0; i < roads.length; i++) {
+      if (i == 0 || roads[i].direction.equals(roads[i-1].direction)) {
+        if (roads[i].direction.y === 0) {
+          roads[i].texture = textures.roads.horizontal;
+        }else {
+          roads[i].texture = textures.roads.vertical;
+        }
+      }else {
+        if ((roads[i].direction.y === 1 && roads[i-1].direction.x === -1) || (roads[i-1].direction.y === -1 && roads[i].direction.x === 1)) {
+          roads[i].texture = textures.roads.rb;
+        }else if ((roads[i].direction.x === 1 && roads[i-1].direction.y === 1) || (roads[i-1].direction.x === -1 && roads[i].direction.y === -1)) {
+          roads[i].texture = textures.roads.rt;
+        }else if ((roads[i].direction.x === -1 && roads[i-1].direction.y === 1) || (roads[i-1].direction.x === 1 && roads[i].direction.y === -1)) {
+          roads[i].texture = textures.roads.lt;
+        }else if ((roads[i].direction.y === 1 && roads[i-1].direction.x === 1) || (roads[i-1].direction.y === -1 && roads[i].direction.x === -1)) {
+          roads[i].texture = textures.roads.lb;
         }
       }
     }
