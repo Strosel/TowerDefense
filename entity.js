@@ -1,22 +1,23 @@
 class Entity {
-  constructor(pos, tex) {
+  constructor(pos, tex, siz) {
     this.position = pos;
     this.texture = tex;
+    this.size = siz;
   }
 
-  draw(bw, bh) {
+  draw() {
     try {
-      image(this.texture, this.position.x, this.position.y, bw, bh)
+      image(this.texture, this.position.x, this.position.y, this.size.x, this.size.y)
     } catch (e) {
       fill('red');
-      rect(this.position.x, this.position.y, bw, bh);
+      rect(this.position.x, this.position.y, this.size.x, this.size.y);
     }
   }
 }
 
 class MovEntity extends Entity {
-  constructor(pos, tex, speed) {
-    super(pos, tex);
+  constructor(pos, tex, siz, speed) {
+    super(pos, tex, siz);
 
     this.speed = speed;
   }
