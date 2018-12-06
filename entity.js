@@ -3,13 +3,15 @@ class Entity {
     this.position = pos;
     this.texture = tex;
     this.size = siz;
+
+    this.color = 'red';
   }
 
   draw() {
     try {
       image(this.texture, this.position.x, this.position.y, this.size.x, this.size.y)
     } catch (e) {
-      fill('red');
+      fill(this.color);
       rect(this.position.x, this.position.y, this.size.x, this.size.y);
     }
   }
