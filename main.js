@@ -3,7 +3,8 @@ let height = 500;
 let track;
 let map;
 let textures = {
-  roads: {}
+  roads: {},
+  towers: {}
 };
 let button;
 let placeTower = false;
@@ -21,7 +22,7 @@ function preload() {
   textures.roads.lb = loadImage("./assets/lb.");
   textures.roads.rt = loadImage("./assets/rt.png");
   textures.roads.rb = loadImage("./assets/rb.");
-  textures.towers.spritesheet = loadImage('tower.png');
+  textures.towers.spritesheet = loadImage('./assets/tower.png');
 }
 
 function setup() {
