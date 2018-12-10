@@ -19,9 +19,9 @@ function preload() {
   textures.roads.horizontal = loadImage("./assets/horizontal.png");
   textures.roads.vertical = loadImage("./assets/vertical.png");
   textures.roads.lt = loadImage("./assets/lt.png");
-  textures.roads.lb = loadImage("./assets/lb.");
+  textures.roads.lb = loadImage("./assets/lb.png");
   textures.roads.rt = loadImage("./assets/rt.png");
-  textures.roads.rb = loadImage("./assets/rb.");
+  textures.roads.rb = loadImage("./assets/rb.png");
   textures.towers.spritesheet = loadImage('./assets/tower.png');
 }
 
@@ -30,7 +30,7 @@ function setup() {
   frameRate(30);
   track = new Track(width, height, map);
   track.setRoadTextures();
-  
+
   button = createButton('test');
   button.mousePressed(()=>{placeTower = true;});
 
