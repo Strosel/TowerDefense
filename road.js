@@ -22,7 +22,7 @@ class Road extends Entity {
       }
       // image(this.texture, this.position.x, this.position.y, this.size.x, this.size.y)
     } catch (e) {
-      fill('red');
+      fill('blue');
       rect(this.position.x, this.position.y, this.size.x, this.size.y);
     }
   }
