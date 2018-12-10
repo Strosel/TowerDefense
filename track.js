@@ -61,7 +61,7 @@ class Track {
     for (let x = 0; x < map.length; x++) {
       for (let y = 0; y < map[0].length; y++) {
         if (map[x][y] === "X") {
-          map[x][y] = new Entity(createVector(blockWidth * x, blockHeight * y), "space", entitySize);
+          map[x][y] = new Entity(createVector(blockWidth * x, blockHeight * y), null, entitySize);
         } else if (map[x][y] === "<") {
           map[x][y] = new Road(createVector(blockWidth * x, blockHeight * y), "road", entitySize, createVector(-1, 0));
         } else if (map[x][y] === ">") {
@@ -71,7 +71,7 @@ class Track {
         } else if (map[x][y] === "^") {
           map[x][y] = new Road(createVector(blockWidth * x, blockHeight * y), "road", entitySize, createVector(0, -1));
         } else if (typeof map[x][y] === 'string') {
-          map[x][y] = new Entity(createVector(blockWidth * x, blockHeight * y), "undefined");
+          map[x][y] = new Entity(createVector(blockWidth * x, blockHeight * y), null);
           console.warn(`undefined entity in map at (${x};${y})`);
         }
       }

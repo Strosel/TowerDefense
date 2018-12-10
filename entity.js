@@ -8,9 +8,15 @@ class Entity {
   }
 
   draw() {
-    try {
-      image(this.texture, this.position.x, this.position.y, this.size.x, this.size.y)
-    } catch (e) {
+    if (this.texture != null) {
+      try {
+        image(this.texture, this.position.x, this.position.y, this.size.x, this.size.y)
+      } catch (e) {
+        fill(this.color);
+        rect(this.position.x, this.position.y, this.size.x, this.size.y);
+      }
+    }
+    else {
       fill(this.color);
       rect(this.position.x, this.position.y, this.size.x, this.size.y);
     }
