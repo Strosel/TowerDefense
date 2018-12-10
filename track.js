@@ -89,7 +89,10 @@ class Track {
 
   getEntity(x, y) {
     let pos = this.gridPos(x, y);
-    return this.grid[pos.x][pos.y];
+    if (pos.x < this.x && pos.x >= 0 && pos.y < this.y && pos.y >= 0) {
+      return this.grid[pos.x][pos.y];
+    }
+    return null;
   }
 
   getStart() {
@@ -98,6 +101,18 @@ class Track {
         if (this.grid[x][y] instanceof StartPoint) {
           return this.grid[x][y];
         }
+      }
+    }
+  }
+
+  placeTower(x, y, tex) {
+    let e = this.getEntity(x, y)
+    if (!(e instanceof Road) && !(e instanceof StartPoint) && !(e instanceof Tower)) {
+      let pos = this.gridPos(x, y);
+      if (pos.x < this.x && pos.x >= 0 && pos.y < this.y && pos.y >= 0) {
+        this.grid[pos.x][pos.y] = new Tower(createVector(this.blockWidth * x, this.blockHeight * y), tex, this.entitySize);
+        console.log(pos);
+
       }
     }
   }
