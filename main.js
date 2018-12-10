@@ -13,7 +13,6 @@ let mouseState = false;
 let prevMouseState = false;
 let towers = [];
 
-
 function preload() {
   map = loadStrings("./assets/track.txt");
   textures.roads.horizontal = loadImage("./assets/horizontal.png");
@@ -41,22 +40,26 @@ function drawTower() {
 }
 
 function addTower(){
-  if (mouseIsPressed && placeTower){
-    towers.push(new Tower(createVector(mouseX -34, mouseY-34), sprite, createVector(68,68)))
-  }
+  track.placeTower(mouseX, mouseY, sprite);
 }
 
 
 function update() {
-  addTower();
+  mouseState = mouseIsPressed;
+  if (mouseState == true && prevMouseState == false && mouseX < 500 && placeTower == true){
+      addTower();
+      placeTower = false;
+  }
+  prevMouseState = mouseState;
 }
 
 function draw() {
   update();
 
-  track.draw()
-  for (t of towers) {
-    t.draw()
-  }
+  background(255,0,0);
+  track.draw();
+  // for (t of towers) {
+  //   t.draw()
+  // }
   if (placeTower){drawTower()}
 }
