@@ -12,6 +12,7 @@ let sprite;
 let mouseState = false;
 let prevMouseState = false;
 let towers = [];
+let enemy;
 
 function preload() {
   map = loadStrings("./assets/track.txt");
@@ -25,8 +26,9 @@ function preload() {
 }
 
 function setup() {
-  createCanvas(width+1, height+1); // +1 to have space for all lines
+  createCanvas(width, height);
   frameRate(30);
+  angleMode(DEGREES);
   track = new Track(width, height, map);
   track.setRoadTextures();
 
@@ -34,6 +36,9 @@ function setup() {
   button.mousePressed(()=>{placeTower = true;});
 
   sprite = textures.towers.spritesheet.get(0, 68, 68, 68)
+
+  enemy = new Enemy(track.getStart().position.copy(), null, track.entitySize, 3, 1);
+
 }
 function drawTower() {
   image(sprite, mouseX - 34, mouseY - 34, 68 , 68);
@@ -50,6 +55,8 @@ function update() {
       addTower();
       placeTower = false;
   }
+
+  enemy.move()
   prevMouseState = mouseState;
 }
 
@@ -58,8 +65,13 @@ function draw() {
 
   background(255,0,0);
   track.draw();
-  // for (t of towers) {
-  //   t.draw()
-  // }
+  for (x of track.grid) {
+    for (e of x) {
+      if (e instanceof Tower) {
+          e.fire(enemy);
+      }
+    }
+  }
   if (placeTower){drawTower()}
+  enemy.draw();
 }
