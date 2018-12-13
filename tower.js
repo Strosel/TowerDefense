@@ -1,6 +1,6 @@
 class Tower extends Entity {
 
-  constructor(pos, tex, siz) {
+  constructor(pos, tex, siz, rad) {
     super(pos, tex, siz);
     this.radius = 500;
     this.cost = 10;
@@ -10,11 +10,12 @@ class Tower extends Entity {
     this.enemy = createVector(0,0);
     }
 
+
+
     fire(enemy){
       this.enemy = enemy.position.copy();
       if (frameCount % 15 == 0){
         push();
-
         strokeWeight(7)
         stroke(255,255,255);
         line(this.position.x + this.size.x / 2, this.position.y + this.size.y / 2, enemy.position.x + enemy.size.x / 2, enemy.position.y + enemy.size.y / 2);
@@ -28,8 +29,12 @@ class Tower extends Entity {
         line(this.position.x + this.size.x / 2, this.position.y + this.size.y / 2, enemy.position.x + enemy.size.x / 2, enemy.position.y + enemy.size.y / 2);
 
         pop();
+
+        enemy.health -= 1;
       }
 
+  //  me: pls dont fire if enemy is not in radius
+  //  p5: wierd flex but ok
     }
     draw(){
       push();

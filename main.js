@@ -12,6 +12,7 @@ let sprite;
 let mouseState = false;
 let prevMouseState = false;
 let towers = [];
+let enemies = [];
 let enemy;
 
 function preload() {
@@ -36,11 +37,13 @@ function setup() {
   button.mousePressed(()=>{placeTower = true;});
 
   sprite = textures.towers.spritesheet.get(0, 68, 68, 68)
-
-  enemy = new Enemy(track.getStart().position.copy(), null, track.entitySize, 3, 1);
-
 }
 function drawTower() {
+  push();
+  fill(204, 101, 192, 25);
+  stroke(127, 63, 120);
+  ellipse(mouseX, mouseY, 400, 400);
+  pop();
   image(sprite, mouseX - 34, mouseY - 34, 68 , 68);
 }
 
@@ -55,8 +58,20 @@ function update() {
       addTower();
       placeTower = false;
   }
+    if (frameCount % 85 == 0){
+        enemy = new Enemy(track.getStart().position.copy(), null, track.entitySize, 10, 1);
+        enemies.push(enemy);
+    }
 
-  enemy.move()
+
+    for (var i = 0; i < enemies.length; i++) {
+      if (enemies[i].health <= 0){
+        enemies.splice(i, i + 1);
+      }
+      else{
+        enemies[i].move();
+      }
+    }
   prevMouseState = mouseState;
 }
 
@@ -68,10 +83,20 @@ function draw() {
   for (x of track.grid) {
     for (e of x) {
       if (e instanceof Tower) {
-          e.fire(enemy);
+        for (enemy of enemies) {
+          var d = dist(e.position.x, e.position.y, enemy.position.x, enemy.position.y);
+          if (d < 34 + 200) {
+            e.fire(enemy);
+            break;
+          }
+        }
+      }
+    }
+    if (placeTower){drawTower()}
+    for (e of enemies) {
+      if (e.health > 0){
+        e.draw();
       }
     }
   }
-  if (placeTower){drawTower()}
-  enemy.draw();
 }
