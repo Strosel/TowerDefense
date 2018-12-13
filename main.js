@@ -14,6 +14,8 @@ let prevMouseState = false;
 let towers = [];
 let enemies = [];
 let enemy;
+let health, healthP;
+let money, moneyP;
 
 function preload() {
   map = loadStrings("./assets/track.txt");
@@ -34,51 +36,58 @@ function setup() {
   track.setRoadTextures();
 
   button = createButton('test');
-  button.mousePressed(()=>{placeTower = true;});
+  button.mousePressed(() => { placeTower = true; });
+
+  health = 100;
+  healthP = createP("<i class='fas fa-heart' style='color: red;'></i> " + health);
+  money = 100;
+  moneyP = createP("<i class='fas fa-dollar-sign' style='color: green;'></i> " + money);
+
+
 
   sprite = textures.towers.spritesheet.get(0, 68, 68, 68)
 }
+
 function drawTower() {
   push();
   fill(204, 101, 192, 25);
   stroke(127, 63, 120);
   ellipse(mouseX, mouseY, 400, 400);
   pop();
-  image(sprite, mouseX - 34, mouseY - 34, 68 , 68);
+  image(sprite, mouseX - 34, mouseY - 34, 68, 68);
 }
 
-function addTower(){
+function addTower() {
   track.placeTower(mouseX, mouseY, sprite);
 }
 
-
 function update() {
   mouseState = mouseIsPressed;
-  if (mouseState == true && prevMouseState == false && mouseX < 500 && placeTower == true){
-      addTower();
-      placeTower = false;
+  if (mouseState == true && prevMouseState == false && mouseX < 500 && placeTower == true) {
+    addTower();
+    placeTower = false;
   }
-    if (frameCount % 85 == 0){
-        enemy = new Enemy(track.getStart().position.copy(), null, track.entitySize, 10, 1);
-        enemies.push(enemy);
-    }
+  if (frameCount % 85 == 0) {
+    enemy = new Enemy(track.getStart().position.copy(), null, track.entitySize, 10, 1);
+    enemies.push(enemy);
+  }
 
 
-    for (var i = 0; i < enemies.length; i++) {
-      if (enemies[i].health <= 0){
-        enemies.splice(i, i + 1);
-      }
-      else{
-        enemies[i].move();
-      }
+  for (var i = 0; i < enemies.length; i++) {
+    if (enemies[i].health <= 0) {
+      enemies.splice(i, i + 1);
     }
+    else {
+      enemies[i].move();
+    }
+  }
   prevMouseState = mouseState;
 }
 
 function draw() {
   update();
 
-  background(255,0,0);
+  background(255, 0, 0);
   track.draw();
   for (x of track.grid) {
     for (e of x) {
@@ -92,11 +101,14 @@ function draw() {
         }
       }
     }
-    if (placeTower){drawTower()}
+    if (placeTower) { drawTower() }
     for (e of enemies) {
-      if (e.health > 0){
+      if (e.health > 0) {
         e.draw();
       }
     }
   }
+
+  healthP.html("<i class='fas fa-heart' style='color: red;'></i> " + health);
+  moneyP.html("<i class='fas fa-dollar-sign' style='color: green;'></i> " + money);
 }
