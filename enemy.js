@@ -34,8 +34,9 @@ class Enemy extends MovEntity{
       }
     }
     else{
+      health -= 10;
       this.health = 0;
-      
+
     }
     //this.direction = track.getEntity(this.newOrigin).direction;
   }

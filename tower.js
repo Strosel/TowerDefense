@@ -1,20 +1,20 @@
 class Tower extends Entity {
 
-  constructor(pos, tex, siz, rad) {
+  constructor(pos, tex, siz, rad, firerate, damage) {
     super(pos, tex, siz);
-    this.radius = 500;
-    this.cost = 10;
-    this.firerate = 0;
-    this.damage = 1;
+    this.radius = rad;
+    //this.cost = 10;
+    this.firerate = firerate;
+    this.damage = damage;
     this.color = 'blue';
-    this.enemy = createVector(0,0);
+    this.target = createVector(0,0);
     }
 
 
 
     fire(enemy){
-      this.enemy = enemy.position.copy();
-      if (frameCount % 15 == 0){
+      this.target = enemy.position.copy();
+      if (frameCount % this.firerate == 0){
         push();
         strokeWeight(7)
         stroke(255,255,255);
@@ -30,7 +30,8 @@ class Tower extends Entity {
 
         pop();
 
-        enemy.health -= 1;
+        enemy.health -= this.damage;
+        money += 10;
       }
 
   //  me: pls dont fire if enemy is not in radius
@@ -40,7 +41,7 @@ class Tower extends Entity {
       push();
       imageMode(CENTER)
       translate(this.position.copy().add(this.size.copy().mult(0.5)));
-      var a = atan2(this.enemy.y - this.position.y, this.enemy.x - this.position.x);
+      var a = atan2(this.target.y - this.position.y, this.target.x - this.position.x);
       rotate(a+90);
       image(this.texture, 0, 0, this.size.x, this.size.y);
       pop();

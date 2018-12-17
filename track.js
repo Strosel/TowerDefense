@@ -105,12 +105,12 @@ class Track {
     }
   }
 
-  placeTower(x, y, tex) {
+  placeTower(x, y, tex, radius, firerate, damage) {
     let e = this.getEntity(x, y)
     if (!(e instanceof Road) && !(e instanceof StartPoint) && !(e instanceof Tower)) {
       let pos = this.gridPos(x, y);
       if (pos.x < this.x && pos.x >= 0 && pos.y < this.y && pos.y >= 0) {
-        this.grid[pos.x][pos.y] = new Tower(createVector(this.blockWidth * pos.x, this.blockHeight * pos.y), tex, this.entitySize);
+        this.grid[pos.x][pos.y] = new Tower(createVector(this.blockWidth * pos.x, this.blockHeight * pos.y), tex, this.entitySize, radius, firerate, damage);
       }
     }
   }

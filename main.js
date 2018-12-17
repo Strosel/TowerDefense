@@ -6,9 +6,17 @@ let textures = {
   roads: {},
   towers: {}
 };
-let button;
-let placeTower = false;
-let sprite;
+let placeTower = {
+  drawTmp: false,
+  cost: 0,
+  sprite: null,
+  radius: 0,
+  firerate: 0,
+  damage: 0
+};
+let t1button;
+let t2button;
+let t3button;
 let mouseState = false;
 let prevMouseState = false;
 let towers = [];
@@ -35,43 +43,84 @@ function setup() {
   track = new Track(width, height, map);
   track.setRoadTextures();
 
-  button = createButton('test');
-  button.mousePressed(() => { placeTower = true; });
+  t1button = createButton('Tower ;100$');
+  t1button.mousePressed(function(){
+    placeTower = {
+      drawTmp: true,
+      cost: 100,
+      sprite: textures.towers.spritesheet.get(0, 0, 68, 68),
+      radius: 400,
+      firerate: 15,
+      damage: 1
+    }
+  });
+
+  t2button = createButton('Tower ;250$');
+  t2button.mousePressed(function(){
+    placeTower = {
+      drawTmp: true,
+      cost: 250,
+      sprite: textures.towers.spritesheet.get(0, 68, 68, 68),
+      radius: 150,
+      firerate: 60,
+      damage: 3
+    }
+  });
+
+  t3button = createButton('Tower ;500$');
+  t3button.mousePressed(function(){
+    placeTower = {
+      drawTmp: true,
+      cost: 500,
+      sprite: textures.towers.spritesheet.get(136, 136, 68, 68),
+      radius: 800,
+      firerate: 10,
+      damage: 0.5
+    }
+  });
 
   health = 100;
   healthP = createP("<i class='fas fa-heart' style='color: red;'></i> " + health);
-  money = 100;
+  money = 5000;
   moneyP = createP("<i class='fas fa-dollar-sign' style='color: green;'></i> " + money);
-
-
-
-  sprite = textures.towers.spritesheet.get(0, 68, 68, 68)
 }
+
+
 
 function drawTower() {
   push();
-  fill(204, 101, 192, 25);
-  stroke(127, 63, 120);
-  ellipse(mouseX, mouseY, 400, 400);
+  if (money >= placeTower.cost){
+    fill(204, 101, 192, 25);
+    stroke(127, 63, 120);
+  }
+  else {
+    fill(255, 0, 0, 25);
+    stroke(255, 0, 0);
+  }
+  ellipse(mouseX, mouseY, placeTower.radius, placeTower.radius);
   pop();
-  image(sprite, mouseX - 34, mouseY - 34, 68, 68);
+  image(placeTower.sprite, mouseX - 34, mouseY - 34, 68, 68);
 }
 
 function addTower() {
-  track.placeTower(mouseX, mouseY, sprite);
+  if (money >= placeTower.cost){
+    track.placeTower(mouseX, mouseY, placeTower.sprite, placeTower.radius, placeTower.firerate, placeTower.damage);
+    money -= placeTower.cost
+  }
 }
+
 
 function update() {
   mouseState = mouseIsPressed;
-  if (mouseState == true && prevMouseState == false && mouseX < 500 && placeTower == true) {
+  if (mouseState == true && prevMouseState == false && mouseX < 500 && placeTower.drawTmp == true) {
     addTower();
-    placeTower = false;
-  }
-  if (frameCount % 85 == 0) {
-    enemy = new Enemy(track.getStart().position.copy(), null, track.entitySize, 10, 1);
-    enemies.push(enemy);
+    placeTower.drawTmp = false;
   }
 
+  if (frameCount % 85 == 0) {
+    enemy = new Enemy(track.getStart().position.copy(), null, track.entitySize, 5, 3);
+    enemies.push(enemy);
+  }
 
   for (var i = 0; i < enemies.length; i++) {
     if (enemies[i].health <= 0) {
@@ -94,14 +143,14 @@ function draw() {
       if (e instanceof Tower) {
         for (enemy of enemies) {
           var d = dist(e.position.x, e.position.y, enemy.position.x, enemy.position.y);
-          if (d < 34 + 200) {
+          if (d < 34 + e.radius*0.5) {
             e.fire(enemy);
             break;
           }
         }
       }
     }
-    if (placeTower) { drawTower() }
+    if (placeTower.drawTmp) { drawTower() }
     for (e of enemies) {
       if (e.health > 0) {
         e.draw();
