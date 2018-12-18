@@ -45,45 +45,52 @@ function setup() {
   track = new Track(width, height, map);
   track.setRoadTextures();
 
+  t1button = createButton('Tower ;100$');
+  t1button.mousePressed(function () {
+    placeTower = {
+      drawTmp: true,
+      cost: 100,
+      sprite: textures.towers.spritesheet.get(0, 0, 68, 68),
+      radius: 400,
+      firerate: 15,
+      damage: 1
+    }
+  });
+  t1button.hide();
+
+  t2button = createButton('Tower ;250$');
+  t2button.mousePressed(function () {
+    placeTower = {
+      drawTmp: true,
+      cost: 250,
+      sprite: textures.towers.spritesheet.get(0, 68, 68, 68),
+      radius: 150,
+      firerate: 60,
+      damage: 3
+    }
+  });
+  t2button.hide();
+
+  t3button = createButton('Tower ;500$');
+  t3button.mousePressed(function () {
+    placeTower = {
+      drawTmp: true,
+      cost: 500,
+      sprite: textures.towers.spritesheet.get(136, 136, 68, 68),
+      radius: 800,
+      firerate: 10,
+      damage: 0.5
+    }
+  });
+  t3button.hide();
+
   startBttn = createButton('Start game');
   startBttn.mousePressed(() => {
     frameCount = 0;
 
-    t1button = createButton('Tower ;100$');
-    t1button.mousePressed(function () {
-      placeTower = {
-        drawTmp: true,
-        cost: 100,
-        sprite: textures.towers.spritesheet.get(0, 0, 68, 68),
-        radius: 400,
-        firerate: 15,
-        damage: 1
-      }
-    });
-
-    t2button = createButton('Tower ;250$');
-    t2button.mousePressed(function () {
-      placeTower = {
-        drawTmp: true,
-        cost: 250,
-        sprite: textures.towers.spritesheet.get(0, 68, 68, 68),
-        radius: 150,
-        firerate: 60,
-        damage: 3
-      }
-    });
-
-    t3button = createButton('Tower ;500$');
-    t3button.mousePressed(function () {
-      placeTower = {
-        drawTmp: true,
-        cost: 500,
-        sprite: textures.towers.spritesheet.get(136, 136, 68, 68),
-        radius: 800,
-        firerate: 10,
-        damage: 0.5
-      }
-    });
+    t1button.show();
+    t2button.show();
+    t3button.show();
 
     health = 100;
     money = 5000;
