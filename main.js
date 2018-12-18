@@ -4,7 +4,8 @@ let track;
 let map;
 let textures = {
   roads: {},
-  towers: {}
+  towers: {},
+  enemies: {}
 };
 let placeTower = {
   drawTmp: false,
