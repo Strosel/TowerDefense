@@ -46,6 +46,9 @@ function setup() {
   track = new Track(width, height, map);
   track.setRoadTextures();
 
+  health = 100;
+  money = 5000;
+
   t1button = createButton('Tower ;100$');
   t1button.mousePressed(function () {
     placeTower = {
@@ -89,9 +92,9 @@ function setup() {
   startBttn.mousePressed(() => {
     frameCount = 0;
 
-    t1button.show();
-    t2button.show();
-    t3button.show();
+    t1button.style("display", "inline-block");
+    t2button.style("display", "inline-block");
+    t3button.style("display", "inline-block");
 
     health = 100;
     money = 5000;
