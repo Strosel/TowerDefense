@@ -4,7 +4,8 @@ let track;
 let map;
 let textures = {
   roads: {},
-  towers: {}
+  towers: {},
+  enemies: {}
 };
 let placeTower = {
   drawTmp: false,
@@ -61,8 +62,8 @@ function setup() {
       drawTmp: true,
       cost: 250,
       sprite: textures.towers.spritesheet.get(0, 68, 68, 68),
-      radius: 150,
-      firerate: 60,
+      radius: 175,
+      firerate: 40,
       damage: 3
     }
   });
@@ -74,14 +75,14 @@ function setup() {
       cost: 500,
       sprite: textures.towers.spritesheet.get(136, 136, 68, 68),
       radius: 800,
-      firerate: 10,
+      firerate: 5,
       damage: 0.5
     }
   });
 
   health = 100;
   healthP = createP("<i class='fas fa-heart' style='color: red;'></i> " + health);
-  money = 5000;
+  money = 1000;
   moneyP = createP("<i class='fas fa-dollar-sign' style='color: green;'></i> " + money);
 }
 
