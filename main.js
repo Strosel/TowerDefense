@@ -47,6 +47,8 @@ function setup() {
 
   startBttn = createButton('Start game');
   startBttn.mousePressed(() => {
+    frameCount = 0;
+
     t1button = createButton('Tower ;100$');
     t1button.mousePressed(function () {
       placeTower = {
@@ -84,13 +86,14 @@ function setup() {
     });
 
     health = 100;
-    healthP = createP("<i class='fas fa-heart' style='color: red;'></i> " + health);
     money = 5000;
-    moneyP = createP("<i class='fas fa-dollar-sign' style='color: green;'></i> " + money);
 
     gameState = 1;
     startBttn.hide();
   });
+
+  healthP = createP("<i class='fas fa-heart' style='color: red;'></i> " + health);
+  moneyP = createP("<i class='fas fa-dollar-sign' style='color: green;'></i> " + money);
 }
 
 
