@@ -40,6 +40,7 @@ function preload() {
   textures.roads.rt = loadImage("./assets/rt.png");
   textures.roads.rb = loadImage("./assets/rb.png");
   textures.towers.spritesheet = loadImage('./assets/tower.png');
+  textures.enemies.sprite = loadImage('./assets/enemy.png');
 }
 
 function setup() {
@@ -147,7 +148,7 @@ function update() {
     }
 
     if (spawnRate(frameCount)) {
-      enemy = new Enemy(track.getStart().position.copy(), null, track.entitySize, enemyPower(frameCount) + 5, enemyPower(frameCount) + 3);
+      enemy = new Enemy(track.getStart().position.copy(), textures.enemies.sprite, track.entitySize, enemyPower(frameCount) + 5, enemyPower(frameCount) + 3);
       enemies.push(enemy);
     }
 
