@@ -28,6 +28,9 @@ let money, moneyP;
 let startBttn;
 let gameState = 0;
 
+let enemyPower = (x) => { return Math.floor(0.001 * x) } // increase by one every 1000 x
+let spawnRate = (x) => { return (x % Math.floor(-0.0003 * x + 85)) == 0 } // decrease by one every 3333 x
+
 function preload() {
   map = loadStrings("./assets/track.txt");
   textures.roads.horizontal = loadImage("./assets/horizontal.png");
@@ -139,8 +142,8 @@ function update() {
     placeTower.drawTmp = false;
   }
 
-  if (frameCount % 85 == 0) {
-    enemy = new Enemy(track.getStart().position.copy(), null, track.entitySize, 5, 3);
+  if (spawnRate(frameCount)) {
+    enemy = new Enemy(track.getStart().position.copy(), null, track.entitySize, enemyPower(frameCount) + 5, enemyPower(frameCount) + 3);
     enemies.push(enemy);
   }
 
