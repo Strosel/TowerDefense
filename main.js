@@ -99,6 +99,9 @@ function setup() {
     t2button.style("display", "inline-block");
     t3button.style("display", "inline-block");
 
+    track.reset();
+    enemies = [];
+
     health = 100;
     money = 5000;
 
@@ -136,26 +139,32 @@ function addTower() {
 
 
 function update() {
-  mouseState = mouseIsPressed;
-  if (mouseState == true && prevMouseState == false && mouseX < 500 && placeTower.drawTmp == true) {
-    addTower();
-    placeTower.drawTmp = false;
-  }
-
-  if (spawnRate(frameCount)) {
-    enemy = new Enemy(track.getStart().position.copy(), null, track.entitySize, enemyPower(frameCount) + 5, enemyPower(frameCount) + 3);
-    enemies.push(enemy);
-  }
-
-  for (var i = 0; i < enemies.length; i++) {
-    if (enemies[i].health <= 0) {
-      enemies.splice(i, i + 1);
+  if (gameState == 1) {
+    mouseState = mouseIsPressed;
+    if (mouseState == true && prevMouseState == false && mouseX < 500 && placeTower.drawTmp == true) {
+      addTower();
+      placeTower.drawTmp = false;
     }
-    else {
-      enemies[i].move();
+
+    if (spawnRate(frameCount)) {
+      enemy = new Enemy(track.getStart().position.copy(), null, track.entitySize, enemyPower(frameCount) + 5, enemyPower(frameCount) + 3);
+      enemies.push(enemy);
+    }
+
+    for (var i = 0; i < enemies.length; i++) {
+      if (enemies[i].health <= 0) {
+        enemies.splice(i, i + 1);
+      }
+      else {
+        enemies[i].move();
+      }
+    }
+    prevMouseState = mouseState;
+
+    if (frameCount == 18110) {
+      gameState = 3;
     }
   }
-  prevMouseState = mouseState;
 }
 
 function draw() {
@@ -205,6 +214,14 @@ function draw() {
     textSize(32);
     textAlign(CENTER);
     text('You Lost', width / 2, height / 3);
+    text('Play Again?', width / 2, height / 3 + 32);
+  }
+  else if (gameState == 3) {
+    fill(0);
+    background(125, 200, 125);
+    textSize(32);
+    textAlign(CENTER);
+    text('You Win!', width / 2, height / 3);
     text('Play Again?', width / 2, height / 3 + 32);
   }
 
