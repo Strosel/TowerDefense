@@ -151,6 +151,16 @@ class Track {
       }
     }
   }
+
+  reset() {
+    for (let x = 0; x < this.x; x++) {
+      for (let y = 0; y < this.y; y++) {
+        if (this.grid[x][y] instanceof Tower) {
+          this.grid[x][y] = new Entity(createVector(blockWidth * x, blockHeight * y), null, entitySize);
+        }
+      }
+    }
+  }
 }
 
 function transpose(a) {
